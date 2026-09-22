@@ -1,39 +1,31 @@
-# Proof of Concept: Product Information System (PHP Native)
+#  Product Information System (PHP Native)
 
-**Pemberitahuan:** 
-Repositori ini merupakan **lampiran tambahan (Proof of Concept)** dari implementasi teknis untuk tugas **Mini Project 1 - Mata Kuliah Pemrograman Web (Pertemuan 2)**. 
+Sebuah implementasi web berbasis **PHP Native** untuk memanajemen data informasi produk. Proyek ini dikembangkan sebagai pemenuhan tugas **Mini Project 1 - Mata Kuliah Pemrograman Web (Pertemuan 2)**. 
 
-Sesuai instruksi modul, fokus utama penugasan adalah perancangan cetak biru (blueprint) konseptual tanpa kode (yang diserahkan secara terpisah). Namun, kode di dalam repositori ini dibuat sebagai pembuktian inisiatif bahwa arsitektur logis *Separation of Concerns* yang dirancang pada cetak biru tersebut dapat berjalan dengan baik di sistem nyata.
+Fokus utama dari proyek ini adalah implementasi **Separation of Concerns**, yaitu memisahkan alur kode menjadi tiga layer logis: Data, Processing, dan Presentation, dipadukan dengan desain antarmuka *Modern Emerald Dark* yang elegan.
 
----
+##  Arsitektur Sistem
 
-##  Struktur Arsitektur (Separation of Concerns)
+Proyek ini dibangun tanpa *framework*, memanfaatkan fitur bawaan PHP secara maksimal melalui tiga berkas inti:
 
-Proyek ini memisahkan kode ke dalam tiga layer utama untuk menjaga kebersihan dan kemudahan pemeliharaan kode:
+1.  **`products.php` (Data Layer):** Repositori data utama berbentuk *multidimensional array* yang menampung spesifikasi produk (ID, Nama, Harga, Stok, dll).
+2.  **`functions.php` (Processing Layer):** Mengisolasi seluruh *business logic*. Menangani kalkulasi matematis total valuasi aset gudang dan filter kondisional untuk mendeteksi stok kritis.
+3.  **`index.php` (Presentation Layer):** Titik masuk aplikasi yang merajut semua layer menggunakan `require_once`. Data dirender ke dalam struktur tabel HTML dinamis menggunakan `foreach`.
 
-1. **Data Layer (`products.php`)**: Bertindak sebagai repositori data (sebagai pengganti database sementara). Menyimpan *multidimensional array* yang berisi detail komoditas produk.
-2. **Processing Layer (`functions.php`)**: Mengisolasi seluruh logika bisnis, kalkulasi nilai aset gudang, dan fungsi penentu status stok.
-3. **Presentation Layer (`index.php`)**: Merajut seluruh komponen (menggunakan `require_once`) dan merender data ke dalam antarmuka HTML dengan gaya visual modern (*Cyber Midnight & Glassmorphism*).
+##  Fitur Unggulan
 
-##  Fitur
+- **Strict Modularity:** Penggunaan `require_once` untuk memastikan dependensi data dan logika dimuat dengan sempurna sebelum *rendering* UI.
+- **Automated Valuation:** Perhitungan nilai total aset gudang dilakukan secara otomatis (*real-time processing*).
+- **Smart Conditional Formatting:** Baris produk pada tabel akan otomatis di-*highlight* dengan warna peringatan (merah pastel) jika stok berada di angka kritis (< 3).
+- **Modern Emerald Dark UI:** Desain antarmuka responsif yang mengusung gaya visual *dark theme* dengan latar belakang gelap pekat, dipadukan aksen *emerald green* bergradasi untuk memberikan kontras tinggi yang profesional dan tidak membosankan.
 
-- **Modular Code**: Menggunakan `require_once` untuk modularitas tingkat tinggi.
-- **Automated Calculation**: Kalkulasi total nilai aset gudang secara dinamis berdasarkan data harga dan stok.
-- **Conditional Formatting**: Peringatan visual (warna merah) secara otomatis pada baris tabel untuk produk dengan stok kritis (kurang dari 3).
-- **Modern UI**: Desain responsif menggunakan efek *Glassmorphism*.
+##  Panduan Eksekusi Lokal
 
-##  Cara Menjalankan Proyek (Lokal)
+Aplikasi ini dapat dijalankan dengan mudah menggunakan *web server* lokal (Apache) atau *built-in server* PHP.
 
-Karena proyek ini menggunakan PHP, kamu memerlukan *web server* lokal untuk menjalankannya.
-
-### Opsi 1: Menggunakan XAMPP / Laragon
-1. Pastikan aplikasi **XAMPP** sudah terinstall.
-2. Buka XAMPP Control Panel dan jalankan modul **Apache** (klik *Start*).
-3. Copy/pindahkan folder proyek ini ke dalam direktori `C:\xampp\htdocs\` (misal: `C:\xampp\htdocs\pemrograman-web`).
-4. Buka browser dan akses URL: `http://localhost/pemrograman-web`
-
-### Opsi 2: Menggunakan PHP Built-in Server (Via Terminal)
-1. Buka terminal (PowerShell / Terminal VS Code) dan arahkan ke folder proyek ini.
-2. Jalankan perintah berikut (sesuaikan lokasi instalasi PHP jika perlu):
+**Opsi 1: Menggunakan Terminal (PHP Built-in Server)**
+1. Kloning repositori ini atau *download* sebagai ZIP.
+2. Buka terminal (VS Code / PowerShell) dan arahkan ke direktori proyek.
+3. Jalankan perintah eksekusi server:
    ```bash
-   C:\xampp\php\php.exe -S localhost:8000
+   php -S localhost:8000
